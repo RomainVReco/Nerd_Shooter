@@ -20,19 +20,14 @@ GRIS = (211, 211, 211)
 BLANC = (255, 255, 255)
 DARK_GREY = (169, 169, 169)
 
-# Variables pour la découpe de l'écran
-margin_title = round(hauteur_ecran*0.1)
-CENTER_X = largeur_ecran//2
-HAUTEUR_BLOC_MENU = (hauteur_ecran - hauteur_ecran*0.2 - hauteur_ecran*0.1)
-SCREEN_SLICE_VALUE = 0.17
+EASY = (2, 5, 5, 0, False)
+NORMAL = (7, 10, 10, 1, False)
+HARD = (9, 10, 10, 3, True)
 
 titre_selection_difficulte = get_police_difficulte(80).render("Choisissez la difficulte : ", True, BLANC)
 position_titre_selection = (round(largeur_ecran*0.05), round(hauteur_ecran*0.06))
 titre_selection_rect = titre_selection_difficulte.get_rect(topleft=position_titre_selection)
-print(titre_selection_rect)
-# help(pygame.rect.Rect)
-
-selection_labels = ["Facile", "Normal", "Difficle", "Personalisee"]
+selection_labels = ["Facile", "Normal", "Difficile", "Personalisee"]
 selection_images = ["NervousWojak-70px.png", "wojak-70px.png", "rages_screaming-70px.png", "doomer_stage22v-70px.png"]
 display_selection = {}
 selection_labels_hovered = list()
@@ -50,25 +45,28 @@ for i in range(len(selection_labels)):
     display_selection.update({i: [[image_temp, image_rect_temp], [selection_temp, selection_rect_temp], selection_labels[i]]})
     selection_labels_hovered.append(get_police_difficulte(80).render(selection_labels[i], True, ORANGE))
 
-# position_image = ((CENTER_X), (hauteur_ecran*0.2+hauteur_ecran*0.1))
-# image_facile = pygame.image.load("../assets/img/soyjak-100px.png")
-# image_facile_rect = image_facile.get_rect(center=position_image)
-#
-# selection_facile = get_police_difficulte(80).render("Facile", True, BLANC)
-# position_facile = (image_facile_rect.right+15, image_facile_rect.top+5)
-# selection_facile_rect = selection_facile.get_rect(topleft=position_facile)
-#
-# print("image facile rect : ", image_facile_rect)
-# print("selection facile rect : ", selection_facile_rect)
+screen.fill(NOIR)
+screen.blit(titre_selection_difficulte, titre_selection_rect)
 
 while running:
     MOUSE_POS = pygame.mouse.get_pos()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if display_selection.get(0)[1][1].collidepoint(event.pos):
+                print("EASY")
+                launch_game(EASY)
+            elif display_selection.get(1)[1][1].collidepoint(event.pos):
+                print("NORMAL")
+                lauch_game(NORMAL)
+            elif display_selection.get(2)[1][1].collidepoint(event.pos):
+                print("HARD")
+                lauch_game(HARD)
+            elif display_selection.get(3)[1][1].collidepoint(event.pos):
+                print("CUSTOM")
+                lauch_game_custom()
 
-    screen.fill(NOIR)
-    screen.blit(titre_selection_difficulte, titre_selection_rect)
     j = 0
     for items in display_selection.values():
         screen.blit(items[0][0], items[0][1])

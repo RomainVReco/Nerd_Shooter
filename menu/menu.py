@@ -31,7 +31,7 @@ titre = get_police_menu(64).render("Nerd shooter", True, BLANC)
 position_titre = (largeur_ecran / 2, (hauteur_ecran * 0.2) / 2)
 titre_rect = titre.get_rect(center=position_titre)
 
-menu_labels = ["Démarrer", "Options", "High scores", "Quitter"]
+menu_labels = ["Demarrer", "Options", "High scores", "Quitter"]
 display_menu = {}
 position_temp = (position_titre[0], position_titre[1]+margin_title)
 hovered_labels = list()
