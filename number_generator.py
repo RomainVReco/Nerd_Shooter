@@ -5,6 +5,7 @@ import pygame
 
 from HUD.hud_bar import generate_hud, draw_hud
 from Sons.sound_effects import get_boum_sound, get_piou_sound, get_shot_sound, finish_sound
+from assets.game_generator import get_random_rect_template
 from integer_hexa_generator import interger_generator, set_difficulty
 from movements import target_movements, decoy_movements
 
@@ -31,10 +32,12 @@ GRIS = (211, 211, 211)
 # Initialisation des tailles, framerate et gravité
 pos_x_object = 0
 pos_y_object = 0
-WIDTH_OBJECT = 70
-HEIGHT_OBJECT = 50
+# Taille de la cible, elle est alignée sur la taille de la font
+WIDTH_OBJECT = 36
+HEIGHT_OBJECT = 36
+FONT_SIZE_GAME = max(WIDTH_OBJECT, HEIGHT_OBJECT)
 FPS = 30
-GRAVITY = 1.3
+
 SPEED_X = round(60 // FPS)
 SPEED_Y = round(90 // FPS)
 i = 0
@@ -95,28 +98,17 @@ key_to_remove = None
 
 # Création des nombres à cliquer. Utilisation d'un set pour garantir l'absence de doublon
 # et création des nombres des leurres
-list_msg, list_msg_decoy = interger_generator(integer, number_of_target, police, NOIR, number_of_decoy, is_hexa)
+target_numbers, decoy_numbers = interger_generator(integer, number_of_target, police, NOIR, number_of_decoy, is_hexa)
 
-# Création de manière aléatoire et sans chevauchement des aires des rectangles
-# Ils peuvent servir de support à l'insertion d'image ou d'autres éléments
-while len(object_list) < number_of_target:
-    object_creation_process = pygame.Rect(random.randint(0, largeur_ecran - WIDTH_OBJECT), 0, WIDTH_OBJECT,
-                                          HEIGHT_OBJECT)
-    not_colliding = True
-    for obj in object_list:
-        if obj.colliderect(object_creation_process):
-            not_colliding = False
-    if not_colliding:
-        object_list.append(object_creation_process)
-assert len(object_list) == number_of_target, ("La liste des rectangles est différente de ", number_of_target)
+object_list = get_random_rect_template(number_of_target, largeur_ecran, FONT_SIZE_GAME)
 
 # Boucle de création du dictionnaire pour placer les messages sur l'écran
 for obj in object_list:
     coordinates = obj.topleft
-    rect = list_msg[j].get_rect()
+    rect = target_numbers[j].get_rect()
     rect.topleft = coordinates
     speed_temp = list_speeds_target[random.randint(0, 3)]
-    dictionnary_of_target.update({list_msg[j]: [rect, has_bounced_sides, has_bounced_ceiling, speed_temp]})
+    dictionnary_of_target.update({target_numbers[j]: [rect, has_bounced_sides, has_bounced_ceiling, speed_temp]})
     print(dictionnary_of_target)
     j += 1
 j = 0
@@ -137,11 +129,11 @@ assert len(other_object) == number_of_decoy, ("La liste des leurres est différe
 # Création des leurres
 for other in other_object:
     coordinates = other.topleft
-    rect = list_msg_decoy[j].get_rect()
+    rect = decoy_numbers[j].get_rect()
     rect.topleft = coordinates
     speed_temp = list_speeds_decoy[random.randint(0, 3)]
     dictionnary_of_decoy.update(
-        {list_msg_decoy[j]: [rect, has_bounced_sides_decoy, has_bounced_ceiling_decoy, speed_temp]})
+        {decoy_numbers[j]: [rect, has_bounced_sides_decoy, has_bounced_ceiling_decoy, speed_temp]})
     print(dictionnary_of_target)
     j += 1
 j = 0
@@ -174,8 +166,6 @@ while running:
     if key_to_remove is not None:
         dictionnary_of_target.pop(key_to_remove)
         key_to_remove = None
-
-    pos_y_object += (12 / FPS) * GRAVITY
 
     # Création des CIBLES sur leur support
     dictionnary_of_target = target_movements(dictionnary_of_target, screen, largeur_ecran, FONT_SIZE, hauteur_ecran).copy()
