@@ -1,8 +1,11 @@
 import pygame
 
+from assets.fonts_generator import get_police_difficulte
+
 pygame.init()
 pygame.mixer.init()
 
+BLANC = (255, 255, 255)
 a = ["sot"]
 a *= 3
 print(a)
@@ -60,26 +63,7 @@ print(vitesse)
 
 largeur_ecran = 1280
 hauteur_ecran = 720
+font_Test = pygame.font.Font("assets/fonts/OptimusPrincepsSemiBold.ttf", 80)
 
-pygame.init()
-screen = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
-clock = pygame.time.Clock()
-running = True
-dt = 0
-screen.fill("grey")
-ORANGE = (255, 127, 0)
-NOIR = (0, 0, 0)
-BLEU = (0, 0, 255)
-INDIGO = (75,0,130)
-
-pos_x_object = 0
-pos_y_object = 0
-WIDTH_OBJECT = 70
-HEIGHT_OBJECT = 50
-FPS = 30
-clock = pygame.time.Clock()
-number_of_enemies = 8
-number_of_target = 5
-number_of_horizontal_left = 3
-number_of_horizontal_right = 3
-number_of_horizontal = 3
+selection_facile = font_Test.render("Personnalisée", True, BLANC)
+print("Taille personnlisée :", selection_facile.get_rect(center=(0, 0)))
