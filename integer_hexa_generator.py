@@ -24,6 +24,8 @@ def interger_generator(integer, number_of_target, police, COLOR, number_of_decoy
 
     set_decoy = set()
     while len(set_decoy) < number_of_decoy:
+        # Pose problème car si CHallenge_integer = 21 alors pas assez de choix pour ajouter des leurres
+        # Il faut modifier l'amplitude de challenge_integer
         entier_decoy = random.randrange(challenge_integer, 150, challenge_integer)
         if entier_decoy % challenge_integer == 0 and entier_decoy % integer != 0:
             if is_hexa:
