@@ -44,6 +44,7 @@ for i in range(len(menu_labels)):
     display_menu.update({i: (name_temp, temp_rect, menu_labels[i])})
     hovered_labels.append(name_hovered)
 
+print(display_menu)
 # demarrer = get_police(40).render("Démarrer", True, BLANC)
 # position_demarrer = (CENTER_X, (position_titre[1]+margin_title+(HAUTEUR_BLOC_MENU*0.17)))
 # demarrer_rect = demarrer.get_rect(center=position_demarrer)
