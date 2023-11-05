@@ -20,6 +20,7 @@ GRIS = (211, 211, 211)
 BLANC = (255, 255, 255)
 DARK_GREY = (169, 169, 169)
 
+# difficulté = (muliple à cibler, nombre de cibles, nombre de leurres, nombre d'obstacles, is_hexadecimal)
 EASY = (2, 5, 5, 0, False)
 NORMAL = (7, 10, 10, 1, False)
 HARD = (9, 10, 10, 3, True)
@@ -56,16 +57,16 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if display_selection.get(0)[1][1].collidepoint(event.pos):
                 print("EASY")
-                launch_game(EASY)
+                launch_game(EASY, largeur_ecran, hauteur_ecran)
             elif display_selection.get(1)[1][1].collidepoint(event.pos):
                 print("NORMAL")
-                lauch_game(NORMAL)
+                lauch_game(NORMAL, largeur_ecran, hauteur_ecran)
             elif display_selection.get(2)[1][1].collidepoint(event.pos):
                 print("HARD")
-                lauch_game(HARD)
+                lauch_game(HARD, largeur_ecran, hauteur_ecran)
             elif display_selection.get(3)[1][1].collidepoint(event.pos):
                 print("CUSTOM")
-                lauch_game_custom()
+                lauch_game_custom(largeur_ecran, hauteur_ecran)
 
     j = 0
     for items in display_selection.values():
