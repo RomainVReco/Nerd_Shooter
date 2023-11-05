@@ -5,7 +5,7 @@ import pygame
 
 from HUD.hud_bar import generate_hud, draw_hud
 from Sons.sound_effects import get_boum_sound, get_piou_sound, get_shot_sound, finish_sound
-from assets.game_generator import get_random_rect_template
+from assets.game_generator import get_random_rect_template, get_target_dictionnary
 from integer_hexa_generator import interger_generator, set_difficulty
 from movements import target_movements, decoy_movements
 
@@ -67,8 +67,8 @@ number_of_horizontal = 3
 number_of_pair = number_of_target
 score = 0
 list_of_onscreen_items = [number_of_target, decoy_hit, score]
-list_speeds_target = [(SPEED_X, SPEED_Y * 1.1), (SPEED_X * 2, SPEED_Y * 1.5), (-SPEED_X * 4, SPEED_Y), (-SPEED_X*2, SPEED_Y)]
-list_speeds_decoy = [(SPEED_X * 2, SPEED_Y * 1.2), (SPEED_X * 2.2, SPEED_Y * 1.5), (-SPEED_X * 3, SPEED_Y * 1.45), (-SPEED_X*2, SPEED_Y)]
+list_speeds_target = [(SPEED_X, round(SPEED_Y * 1.1, 1)), (SPEED_X * 2, SPEED_Y * 1.5), (-SPEED_X * 4, SPEED_Y), (-SPEED_X*2, SPEED_Y)]
+list_speeds_decoy = [(SPEED_X * 2, round(SPEED_Y * 1.2, 1)), (SPEED_X * 2.2, SPEED_Y * 1.5), (-SPEED_X * 3, SPEED_Y * 1.45), (-SPEED_X*2, SPEED_Y)]
 has_bounced_sides, has_bounced_ceiling = 0, 0
 has_bounced_sides_decoy, has_bounced_ceiling_decoy = 0, 0
 integer = 0
@@ -86,7 +86,7 @@ else:
     SCORE_INCREMENT = 200
     SCORE_DECREMENT = 75
 
-object_list = []
+target_list = []
 other_object = []
 horizontal_object_left = []
 horizontal_object_right = []
@@ -100,19 +100,9 @@ key_to_remove = None
 # et création des nombres des leurres
 target_numbers, decoy_numbers = interger_generator(integer, number_of_target, police, NOIR, number_of_decoy, is_hexa)
 
-object_list = get_random_rect_template(number_of_target, largeur_ecran, FONT_SIZE_GAME)
+target_list = get_random_rect_template(number_of_target, largeur_ecran, FONT_SIZE_GAME)
 
-# Boucle de création du dictionnaire pour placer les messages sur l'écran
-for obj in object_list:
-    coordinates = obj.topleft
-    rect = target_numbers[j].get_rect()
-    rect.topleft = coordinates
-    speed_temp = list_speeds_target[random.randint(0, 3)]
-    dictionnary_of_target.update({target_numbers[j]: [rect, has_bounced_sides, has_bounced_ceiling, speed_temp]})
-    print(dictionnary_of_target)
-    j += 1
-j = 0
-del coordinates, rect
+dictionnary_of_target = get_target_dictionnary(target_list, target_numbers, list_speeds_target)
 
 # Création des supports des leurres
 while len(other_object) < number_of_decoy:

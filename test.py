@@ -49,21 +49,13 @@ print("Copie de dic_2 dans dic_3 : ", dic_3)
 
 # dic_3 = fonction(dic_2)
 
-f = 0
-print(bool(f))
-
-g = 1
-print(bool(g))
-FPS = 30
-hauteur = 720
-vitesse = 60//FPS
-
-print(vitesse)
-
-
 largeur_ecran = 1280
 hauteur_ecran = 720
 font_Test = pygame.font.Font("assets/fonts/OptimusPrincepsSemiBold.ttf", 80)
 
 selection_facile = font_Test.render("Personnalisée", True, BLANC)
 print("Taille personnlisée :", selection_facile.get_rect(center=(0, 0)))
+
+for i in range(21, 150, 21):
+    print("i : ", i, end=' ')
+    print("i%2 :", i % 2)
