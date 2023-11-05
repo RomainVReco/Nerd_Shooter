@@ -2,6 +2,8 @@ import math
 
 import pygame
 
+from assets.fonts_generator import get_police_menu
+
 largeur_ecran = 1280
 hauteur_ecran = 720
 
@@ -9,12 +11,6 @@ pygame.init()
 screen = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
 pygame.display.set_caption("Nerd shooter")
 running = True
-
-
-# Renvoie un objet Font, dont la taille peut être adaptée lors de l'appel
-def get_police(font_size):
-    return pygame.font.Font("../assets/font_menu.ttf", font_size)
-
 
 # Initialisation de variables de couleurs
 ORANGE = (255, 127, 0)
@@ -30,7 +26,7 @@ HAUTEUR_BLOC_MENU = (hauteur_ecran - hauteur_ecran*0.2 - hauteur_ecran*0.1)
 SCREEN_SLICE_VALUE = 0.17
 
 # Création du titre
-titre = get_police(64).render("Nerd shooter", True, BLANC)
+titre = get_police_menu(64).render("Nerd shooter", True, BLANC)
 # xC = (xA + xB) / 2 ; yC = (yA + yB)/2 ==> centre d'un rectangle
 position_titre = (largeur_ecran / 2, (hauteur_ecran * 0.2) / 2)
 titre_rect = titre.get_rect(center=position_titre)
@@ -41,8 +37,8 @@ position_temp = (position_titre[0], position_titre[1]+margin_title)
 hovered_labels = list()
 
 for i in range(len(menu_labels)):
-    name_temp = get_police(40).render(menu_labels[i], True, BLANC)
-    name_hovered = get_police(40).render(menu_labels[i], True, ORANGE)
+    name_temp = get_police_menu(40).render(menu_labels[i], True, BLANC)
+    name_hovered = get_police_menu(40).render(menu_labels[i], True, ORANGE)
     position_temp = (CENTER_X, (position_temp[1]+(HAUTEUR_BLOC_MENU*SCREEN_SLICE_VALUE)))
     temp_rect = name_temp.get_rect(center=position_temp)
     display_menu.update({i: (name_temp, temp_rect, menu_labels[i])})
