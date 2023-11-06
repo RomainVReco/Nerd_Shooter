@@ -1,8 +1,8 @@
 import random
 import pygame
 
-PATH_SOUND_EFFECTS = "Sons/Bruitage/"
-PATH_MUSIC = "Sons/BO/"
+PATH_SOUND_EFFECTS = "../Sons/Bruitage/"
+PATH_MUSIC = "../Sons/BO/"
 piou_sounds = ["piou_1.mp3", "piou_2.mp3", "piou_3.mp3"]
 boum_sounds = ["boum_1.mp3", "boum_2.mp3", "boum_3.mp3", "boum_4.mp3"]
 finish_sounds = ["impressionnant_1.mp3", "wahou_1.mp3"]

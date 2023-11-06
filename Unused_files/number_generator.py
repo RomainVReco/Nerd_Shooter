@@ -36,13 +36,13 @@ i = 0
 j = 0
 
 # Chargement de l'image du background
-background1 = pygame.image.load("assets/background/desert.jpg")
+background1 = pygame.image.load("../assets/background/desert.jpg")
 LARGEUR, HAUTEUR = (background1.get_width() // 4, background1.get_height() // 4)
 background1 = pygame.transform.scale(background1, (LARGEUR, HAUTEUR))
-background2 = pygame.image.load("assets/background/island.jpg")
+background2 = pygame.image.load("../assets/background/island.jpg")
 background2 = pygame.transform.scale(background2, (LARGEUR, HAUTEUR))
 list_background = [background1, background2]
-current_background = list_background[random.randint(0,1)]
+current_background = list_background[random.randint(0, 1)]
 
 # Position initiale de la cible
 target_x_cible, target_y_cible = largeur_ecran//2, hauteur_ecran//2

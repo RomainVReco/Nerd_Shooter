@@ -18,6 +18,8 @@ def launch_game(difficulty, largeur_ecran, hauteur_ecran, screen):
     dt = 0
     FONT_SIZE = 32
 
+    # !! Fonction de création de décor à créer !!
+
     # Initialisation de variables de couleurs
     ORANGE = (255, 127, 0)
     NOIR = (0, 0, 0)
@@ -44,8 +46,6 @@ def launch_game(difficulty, largeur_ecran, hauteur_ecran, screen):
                           (-SPEED_X * 2, SPEED_Y)]
     list_speeds_decoy = [(SPEED_X * 2, round(SPEED_Y * 1.2, 1)), (SPEED_X * 2.2, SPEED_Y * 1.5),
                          (-SPEED_X * 3, SPEED_Y * 1.45), (-SPEED_X * 2, SPEED_Y)]
-    has_bounced_sides, has_bounced_ceiling = 0, 0
-    has_bounced_sides_decoy, has_bounced_ceiling_decoy = 0, 0
 
     # En fonction de la difficulté, défini les variables de variation du score
     if is_hexa:
@@ -112,9 +112,9 @@ def launch_game(difficulty, largeur_ecran, hauteur_ecran, screen):
                                                hauteur_ecran).copy()
 
         if len(dictionnary_of_target.keys()) == 0:
-            sleep(2.0)
+            sleep(0.5)
             finish_sound()
-            sleep(2.0)
+            sleep(1.0)
             pygame.quit()
 
         # Dessin du réticule de visée
@@ -130,5 +130,5 @@ def launch_game(difficulty, largeur_ecran, hauteur_ecran, screen):
         pygame.display.flip()
         clock.tick(FPS)
 
-pygame.quit()
+    pygame.quit()
 
