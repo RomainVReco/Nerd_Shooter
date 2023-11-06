@@ -1,6 +1,7 @@
 import pygame.font
 
 from assets.fonts_generator import get_police_difficulte
+from levels.game_engine import launch_game
 
 largeur_ecran = 1280
 hauteur_ecran = 720
@@ -57,16 +58,16 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if display_selection.get(0)[1][1].collidepoint(event.pos):
                 print("EASY")
-                launch_game(EASY, largeur_ecran, hauteur_ecran)
+                launch_game(EASY, largeur_ecran, hauteur_ecran, screen)
             elif display_selection.get(1)[1][1].collidepoint(event.pos):
                 print("NORMAL")
-                lauch_game(NORMAL, largeur_ecran, hauteur_ecran)
+                launch_game(NORMAL, largeur_ecran, hauteur_ecran, screen)
             elif display_selection.get(2)[1][1].collidepoint(event.pos):
                 print("HARD")
-                lauch_game(HARD, largeur_ecran, hauteur_ecran)
+                launch_game(HARD, largeur_ecran, hauteur_ecran, screen)
             elif display_selection.get(3)[1][1].collidepoint(event.pos):
                 print("CUSTOM")
-                lauch_game_custom(largeur_ecran, hauteur_ecran)
+                launch_game_custom(largeur_ecran, hauteur_ecran)
 
     j = 0
     for items in display_selection.values():

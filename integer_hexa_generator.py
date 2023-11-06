@@ -1,7 +1,9 @@
 import random
 
+from assets.fonts_generator import get_police_vanilla
 
-def interger_generator(integer, number_of_target, police, COLOR, number_of_decoy, is_hexa):
+
+def interger_generator(integer, number_of_target, font_size, COLOR, number_of_decoy, is_hexa):
     set_pair = set()
     while len(set_pair) < number_of_target:
         entier = random.randrange(integer, 150, integer)
@@ -15,7 +17,7 @@ def interger_generator(integer, number_of_target, police, COLOR, number_of_decoy
 
     # Les multiples sont transformés en message affichable à l'écran
     for i in range(len(list_pair)):
-        list_msg.append(police.render(str(list_pair[i]), True, COLOR))
+        list_msg.append(get_police_vanilla(font_size).render(str(list_pair[i]), True, COLOR))
 
     # Création des nombres des leurres, ici multiples de 3
     challenge_integer = integer
@@ -26,7 +28,7 @@ def interger_generator(integer, number_of_target, police, COLOR, number_of_decoy
     while len(set_decoy) < number_of_decoy:
         # Pose problème car si CHallenge_integer = 21 alors pas assez de choix pour ajouter des leurres
         # Il faut modifier l'amplitude de challenge_integer
-        entier_decoy = random.randrange(challenge_integer, 150, challenge_integer)
+        entier_decoy = random.randrange(challenge_integer, 250, challenge_integer)
         if entier_decoy % challenge_integer == 0 and entier_decoy % integer != 0:
             if is_hexa:
                 entier_decoy = hex(entier_decoy)
@@ -36,7 +38,7 @@ def interger_generator(integer, number_of_target, police, COLOR, number_of_decoy
     list_msg_decoy = list()
 
     for i in range(len(list_decoy)):
-        list_msg_decoy.append(police.render(str(list_decoy[i]), True, COLOR))
+        list_msg_decoy.append(get_police_vanilla(font_size).render(str(list_decoy[i]), True, COLOR))
 
     return list_msg, list_msg_decoy
 
