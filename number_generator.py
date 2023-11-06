@@ -5,7 +5,7 @@ import pygame
 
 from HUD.hud_bar import generate_hud, draw_hud
 from Sons.sound_effects import get_boum_sound, get_piou_sound, get_shot_sound, finish_sound
-from assets.game_generator import get_random_rect_template, get_target_dictionnary
+from assets.game_generator import get_random_rect_template, get_object_dictionnary
 from integer_hexa_generator import interger_generator, set_difficulty
 from movements import target_movements, decoy_movements
 
@@ -19,8 +19,7 @@ pygame.display.set_caption("Nerd shooter")
 running = True
 dt = 0
 # Création de l'objet Font pour écrire dessus
-FONT_SIZE = 32
-police = pygame.font.Font('freesansbold.ttf', FONT_SIZE)
+FONT_SIZE = 36
 
 # Initialisation de variables de couleurs
 ORANGE = (255, 127, 0)
@@ -29,13 +28,6 @@ BLEU = (0, 0, 255)
 INDIGO = (75, 0, 130)
 GRIS = (211, 211, 211)
 
-# Initialisation des tailles, framerate et gravité
-pos_x_object = 0
-pos_y_object = 0
-# Taille de la cible, elle est alignée sur la taille de la font
-WIDTH_OBJECT = 36
-HEIGHT_OBJECT = 36
-FONT_SIZE_GAME = max(WIDTH_OBJECT, HEIGHT_OBJECT)
 FPS = 30
 
 SPEED_X = round(60 // FPS)
@@ -57,14 +49,10 @@ target_x_cible, target_y_cible = largeur_ecran//2, hauteur_ecran//2
 # Pour cacher le curseur de la souris
 pygame.mouse.set_visible(False)
 
-clock = pygame.time.Clock()
 number_of_target = 5
 number_of_decoy = 5
-decoy_hit = 0
-number_of_horizontal_left = 3
-number_of_horizontal_right = 3
 number_of_horizontal = 3
-number_of_pair = number_of_target
+decoy_hit = 0
 score = 0
 list_of_onscreen_items = [number_of_target, decoy_hit, score]
 list_speeds_target = [(SPEED_X, round(SPEED_Y * 1.1, 1)), (SPEED_X * 2, SPEED_Y * 1.5), (-SPEED_X * 4, SPEED_Y), (-SPEED_X*2, SPEED_Y)]
@@ -86,48 +74,24 @@ else:
     SCORE_INCREMENT = 200
     SCORE_DECREMENT = 75
 
-target_list = []
-other_object = []
-horizontal_object_left = []
-horizontal_object_right = []
-dictionnary_of_target = {}
-dictionnary_of_decoy = {}
-
 # Variable utilisée pour ne pas supprimer une donnée pendant le parcours du dictionnaire
 key_to_remove = None
 
 # Création des nombres à cliquer. Utilisation d'un set pour garantir l'absence de doublon
 # et création des nombres des leurres
-target_numbers, decoy_numbers = interger_generator(integer, number_of_target, police, NOIR, number_of_decoy, is_hexa)
+target_numbers, decoy_numbers = interger_generator(integer, number_of_target, FONT_SIZE, NOIR, number_of_decoy, is_hexa)
 
-target_list = get_random_rect_template(number_of_target, largeur_ecran, FONT_SIZE_GAME)
+# Création des supports des cibles
+target_list = get_random_rect_template(number_of_target, largeur_ecran, FONT_SIZE)
 
-dictionnary_of_target = get_target_dictionnary(target_list, target_numbers, list_speeds_target)
+# Création du dictionnairte des cibles, contenu et contenant
+dictionnary_of_target = get_object_dictionnary(target_list, target_numbers, list_speeds_target)
 
 # Création des supports des leurres
-while len(other_object) < number_of_decoy:
-    object_creation_process = pygame.Rect(random.randint(0, largeur_ecran - WIDTH_OBJECT), 0, WIDTH_OBJECT,
-                                          HEIGHT_OBJECT)
-    not_colliding = True
-    for other in other_object:
-        if other.colliderect(object_creation_process):
-            not_colliding = False
-    if not_colliding:
-        other_object.append(object_creation_process)
-assert len(other_object) == number_of_decoy, ("La liste des leurres est différente de ", number_of_decoy)
+decoy_list = get_random_rect_template(number_of_decoy, largeur_ecran, FONT_SIZE)
 
-# Création des leurres
-for other in other_object:
-    coordinates = other.topleft
-    rect = decoy_numbers[j].get_rect()
-    rect.topleft = coordinates
-    speed_temp = list_speeds_decoy[random.randint(0, 3)]
-    dictionnary_of_decoy.update(
-        {decoy_numbers[j]: [rect, has_bounced_sides_decoy, has_bounced_ceiling_decoy, speed_temp]})
-    print(dictionnary_of_target)
-    j += 1
-j = 0
-del coordinates, rect
+# Création du dictionnairte des leuures, contenu et contenant
+dictionnary_of_decoy = get_object_dictionnary(decoy_list, decoy_numbers, list_speeds_decoy)
 
 HUD = generate_hud(largeur_ecran, hauteur_ecran, NOIR)
 
