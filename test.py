@@ -62,5 +62,5 @@ for i in range(21, 150, 21):
 
 liste_sprt = [-5, -8, -1, -3, -10]
 print("avant sort() : ", liste_sprt)
-liste_sprt.sort()
+liste_sprt.sort(reverse=True)
 print("après sort() : ", liste_sprt)
