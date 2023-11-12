@@ -2,7 +2,7 @@ from operator import itemgetter
 
 import json
 
-PATH = "../assets/"
+PATH = "../score/"
 file_name = "tableau_scores.json"
 
 
@@ -93,5 +93,32 @@ def check_score_type(score, name):
         insert_lowscores(score, name)
 
 
-check_score_type(-556, "Bob")
-print(load_score_data())
+def get_score_elements(score_data, data_key, center_elements, police, color) -> dict:
+    p = 0
+    print("Position : ", center_elements)
+    values_list = list()
+    score_dict = {}
+    value_rect = []
+    k = 0
+    position_temp = center_elements.copy()
+    for score in (score_data[data_key]):
+        print(f'Tour de boucle {p}')
+        value_dict_score = score.values()
+        for value in value_dict_score:
+            value_temp = police.render(str(value), True, color)
+            print("valeur :", value)
+            value_rect = value_temp.get_rect()
+            position_temp[0] += value_rect.width
+            value_rect.topleft = position_temp
+            values_list.append([value_temp, value_rect])
+            print("Largeur rectangle :", value_rect.width)
+            position_temp[0] += value_rect.width
+            print("position x : ", position_temp[0])
+        score_dict.update({k: values_list})
+        center_elements[1] += 60
+        print("position y :", center_elements[1])
+        position_temp[0] = center_elements[0]
+        k += 1
+        p += 1
+        if len(score_dict) == 5:
+            return score_dict

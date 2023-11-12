@@ -1,7 +1,7 @@
 import pygame
 
-from Sons.sound_effects import play_intro_music
 from assets.fonts_generator import get_police_menu
+from score.scores_functions import load_score_data, get_score_elements
 
 largeur_ecran = 1280
 hauteur_ecran = 720
@@ -22,9 +22,11 @@ BLANC = (255, 255, 255)
 display_score_titles = {}
 hovered_labels = []
 score_titre = ["Hall of Fame", "Hall of Shame"]
-position_titre = [(640, 60), (640, 420)]
+position_titre = [(largeur_ecran // 2, round(hauteur_ecran * 0.083)), (largeur_ecran // 2, round(hauteur_ecran * 0.5385))]
+print(position_titre)
 
 # Division de l'écran en deux
+police = get_police_menu(40)
 
 # Création de deux rectangles contenant les titres
 for i in range(len(score_titre)):
@@ -33,6 +35,22 @@ for i in range(len(score_titre)):
     temp_rect = name_temp.get_rect(center=position_titre[i])
     display_score_titles.update({i: (name_temp, temp_rect, score_titre[i])})
     hovered_labels.append(name_hovered)
+
+print("taille titre", display_score_titles[1][1])
+scores_type = load_score_data()
+data_key = list(scores_type.keys())
+scores_type_display = []
+hiscores = {}
+lowscores = {}
+initial_position_elements = ([round(largeur_ecran*0.378), round(hauteur_ecran*0.1264)], [round(largeur_ecran*0.378), round(hauteur_ecran*0.5944)])
+
+for i in range(len(data_key)):
+    print("Tour de boucle 1")
+    scores_type_display.append(get_score_elements(scores_type, data_key[i], initial_position_elements[i], police, BLANC))
+
+hiscores, lowscores = scores_type_display
+
+
 
 while running:
     MOUSE_POS = pygame.mouse.get_pos()
@@ -50,6 +68,11 @@ while running:
         else:
             screen.blit(items[0], items[1])
         j += 1
+
+    for score in hiscores.values():
+        screen.blit(score[0][0], score[0][1])
+        screen.blit(score[1][0], score[1][1])
+        screen.blit(score[2][0], score[2][1])
 
     pygame.display.flip()
 

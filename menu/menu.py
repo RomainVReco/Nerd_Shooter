@@ -1,8 +1,5 @@
-import math
-
 import pygame
 
-from Sons.sound_effects import play_intro_music
 from assets.fonts_generator import get_police_menu
 from levels.selection_difficulte import select_difficulty
 
@@ -47,7 +44,6 @@ for i in range(len(menu_labels)):
     hovered_labels.append(name_hovered)
 
 print(display_menu)
-play_intro_music()
 while running:
     MOUSE_POS = pygame.mouse.get_pos()
     for event in pygame.event.get():
