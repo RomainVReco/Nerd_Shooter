@@ -59,3 +59,8 @@ print("Taille personnlisée :", selection_facile.get_rect(center=(0, 0)))
 for i in range(21, 150, 21):
     print("i : ", i, end=' ')
     print("i%2 :", i % 2)
+
+liste_sprt = [-5, -8, -1, -3, -10]
+print("avant sort() : ", liste_sprt)
+liste_sprt.sort()
+print("après sort() : ", liste_sprt)
