@@ -94,6 +94,15 @@ def check_score_type(score, name):
 
 
 def get_score_elements(score_data, data_key, center_elements, police, color) -> dict:
+    """
+    Prépare les éléments graphiques à afficher sur le tableau des scores
+    :param score_data: la base de données JSON récupérée en dict
+    :param data_key: clé du dictionnaire
+    :param center_elements: la position initiale des rectangles
+    :param police: le type de font désiré
+    :param color:
+    :return: un dictionnaire contenant les images, poisitions et scores à placer sur l'écran
+    """
     values_list = list()
     score_dict = {}
     i = 0
