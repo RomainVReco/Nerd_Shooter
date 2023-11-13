@@ -1,10 +1,12 @@
 import pygame
 
 from assets.fonts_generator import get_police_menu
+from config import get_largeur_ecran, get_hauteur_ecran
 from levels.selection_difficulte import select_difficulty
+from score.score_display import score_display
 
-largeur_ecran = 1280
-hauteur_ecran = 720
+largeur_ecran = get_largeur_ecran()
+hauteur_ecran = get_hauteur_ecran()
 
 pygame.init()
 screen = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
@@ -55,7 +57,7 @@ while running:
             # if display_menu[1][1].collidepoint(event.pos):
             #     options()
             if display_menu[1][1].collidepoint(event.pos):
-                hiscores()
+                score_display(largeur_ecran, hauteur_ecran, screen)
             if display_menu[2][1].collidepoint(event.pos):
                 pygame.quit()
 
