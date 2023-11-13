@@ -20,6 +20,11 @@ def score_display(largeur_ecran, hauteur_ecran, screen):
     print(position_titre)
     police = get_police_menu(40)
 
+    # Création bouton retour:
+    retour = get_police_menu(50).render("Retour", True, BLANC)
+    retour_rect = retour.get_rect(center=(150, round(hauteur_ecran * 0.083)))
+    retour_hovered = get_police_menu(50).render("Retour", True, ORANGE)
+
     # Création de deux rectangles contenant les titres
     for i in range(len(score_titre)):
         name_temp = get_police_menu(50).render(score_titre[i], True, BLANC)
@@ -33,8 +38,9 @@ def score_display(largeur_ecran, hauteur_ecran, screen):
     scores_type_display = []
     hiscores = {}
     lowscores = {}
-    initial_position_elements = ([round(largeur_ecran * 0.25), round(hauteur_ecran * 0.15)], [round(largeur_ecran * 0.25),
-                                                                                              round(hauteur_ecran * 0.61)])
+    initial_position_elements = (
+    [round(largeur_ecran * 0.25), round(hauteur_ecran * 0.15)], [round(largeur_ecran * 0.25),
+                                                                 round(hauteur_ecran * 0.61)])
     for j in range(len(data_key)):
         print("élément de data key[j]", data_key[j])
         print("élément de initial position[j]", initial_position_elements[j])
@@ -50,6 +56,13 @@ def score_display(largeur_ecran, hauteur_ecran, screen):
                 running = False
 
         screen.fill(NOIR)
+
+        screen.blit(retour, retour_rect)
+        pygame.draw.rect(screen, BLANC, retour_rect, 1)
+        if retour_rect.collidepoint(MOUSE_POS):
+            screen.blit(retour_hovered, retour_rect)
+            pygame.draw.rect(screen, ORANGE, retour_rect, 1)
+
         for display in display_score_titles.values():
             screen.blit(display[0], display[1])
         k = 0
