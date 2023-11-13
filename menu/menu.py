@@ -2,6 +2,7 @@ import pygame
 
 from assets.fonts_generator import get_police_menu
 from config import get_largeur_ecran, get_hauteur_ecran
+
 from levels.selection_difficulte import select_difficulty
 from score.score_display import score_display
 
@@ -11,6 +12,7 @@ hauteur_ecran = get_hauteur_ecran()
 pygame.init()
 screen = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
 pygame.display.set_caption("Nerd shooter")
+
 running = True
 
 # Initialisation de variables de couleurs
