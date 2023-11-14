@@ -8,37 +8,9 @@ from assets.fonts_generator import get_police_menu
 from assets.game_generator import get_random_rect_template, get_object_dictionnary
 from integer_hexa_generator import interger_generator
 from movements import target_movements, decoy_movements
+from score.ask_name import ask_name_components
+from score.score_display import menu
 from score.scores_functions import check_score_type
-
-
-def ask_name_components(largeur_ecran, hauteur_ecran, color):
-    CENTER_X = largeur_ecran // 2
-    CENTER_Y = hauteur_ecran // 2.5
-    list_name_components = list()
-    # Création du titre
-    text_endgame = get_police_menu(40).render(f"Toutes les cibles ont ete detruites !", True, color)
-    text_endgame_rect = text_endgame.get_rect(center=(CENTER_X, CENTER_Y))
-    list_name_components.append([text_endgame, text_endgame_rect])
-
-    text_score = get_police_menu(40).render('Score : ', True, color)
-    top_endgame = text_endgame_rect.top
-    top_endgame += text_endgame_rect.height
-    left_endgame = text_endgame_rect.left
-    text_score_rect = text_score.get_rect(topleft=(left_endgame, top_endgame))
-    list_name_components.append([text_score, text_score_rect])
-
-    text_nom = get_police_menu(40).render("Votre nom : ", True, color)
-    top_score = text_score_rect.top
-    top_score += text_score_rect.height
-    left_score = text_score_rect.left
-    text_nom_rect = text_nom.get_rect(topleft=(left_score, top_score))
-    list_name_components.append([text_nom, text_nom_rect])
-
-    left_nom = left_score + text_nom_rect.width
-    input_text = get_police_menu(40).render('', True, color)
-    input_box = pygame.Rect(left_nom, top_score, 390, 44)
-    list_name_components.append([input_text, input_box])
-    return list_name_components
 
 
 def launch_game(difficulty, largeur_ecran, hauteur_ecran, screen):
@@ -138,7 +110,6 @@ def launch_game(difficulty, largeur_ecran, hauteur_ecran, screen):
                     nom = nom[:-1]
                 elif event.key == pygame.K_RETURN:
                     check_score_type(score, nom)
-                    break
                 else:
                     if len(nom) == 20:
                         break
@@ -155,11 +126,11 @@ def launch_game(difficulty, largeur_ecran, hauteur_ecran, screen):
 
         # Création des LEURRES sur leur support
         dictionnary_of_decoy = decoy_movements(dictionnary_of_decoy, screen, largeur_ecran, FONT_SIZE,
-                                               hauteur_ecran).copy()
+                                                   hauteur_ecran).copy()
 
         if len(dictionnary_of_target.keys()) == 0:
-            sleep(0.5)
-            if not endgame:
+            if endgame == False:
+                sleep(0.5)
                 finish_sound()
             endgame = True
             # Ecran d'affichage des scores
@@ -168,7 +139,6 @@ def launch_game(difficulty, largeur_ecran, hauteur_ecran, screen):
             score_surface = get_police_menu(40).render(score_text, True, BLANC)
             list_name_components[3][0] = text_surface
             list_name_components[1][0] = score_surface
-            screen.fill(NOIR)
             for detail in list_name_components:
                 screen.blit(detail[0], detail[1])
             # sleep(1.0)
