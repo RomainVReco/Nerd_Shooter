@@ -12,43 +12,6 @@ print(a)
 FPS = 30
 print((5 / FPS))
 
-hasBounced = False
-
-dic = {1: [34, 45, 60], 2: (50, 60, 30), 3: hasBounced}
-print(dic)
-print(dic.get(1))
-print(dic.values())
-print(dic)
-
-game = "game"
-
-dic_2 = {1: 34, 45: 60, 2: [50, 60, 30], 4: hasBounced}
-dic_3 = {1: [game, False, False, (0.5, 0.5)]}
-
-print(dic_2)
-hasBounced = True
-dic_2.update({4: hasBounced})
-print("Dic après chgmnt hasBounced : ", dic)
-
-if dic_2.get(4):
-    print("coucou")
-
-variables_temp = dic_3.get(1)
-print("Variables temps : ", variables_temp)
-temp = (variables_temp[3][0] * -1, 0.5)
-variables_temp[3] = temp
-print("Variables modifiées : ", variables_temp)
-new_dic_3 = dic_3.update({1: variables_temp})
-
-print("Mise à jour dic_3 : ", dic_3)
-
-print("Type dic_3 : ", type(dic_3))
-print("Dic_2 : ", dic_2)
-# dic_3 = dic_2.copy()
-print("Copie de dic_2 dans dic_3 : ", dic_3)
-
-# dic_3 = fonction(dic_2)
-
 largeur_ecran = 1280
 hauteur_ecran = 720
 font_Test = pygame.font.Font("assets/fonts/OptimusPrincepsSemiBold.ttf", 80)
@@ -70,3 +33,30 @@ print(len(text))
 selection_facile = font_Test.render("Capt. Steven Hiller", True, BLANC)
 rect = selection_facile.get_rect()
 print("dimension 20 char :", rect)
+score = 100
+
+print("Toutes les cibles ont été détruites ! \n"
+      f"Score {score} : \n"
+      "Votre nom : ")
+CENTER_X = largeur_ecran//2
+CENTER_Y = hauteur_ecran//2
+font_Test_40 = pygame.font.Font("assets/fonts/OptimusPrincepsSemiBold.ttf", 40)
+text_endgame = font_Test_40.render("Toutes les cibles ont été détruites ! \n"
+                                   f"Score {score} : \n"
+                                   "Votre nom : ", True, BLANC)
+text_endgame_rect = text_endgame.get_rect(center=(CENTER_X, CENTER_Y))
+# input_box = pygame.Rect(CENTER_X, CENTER_Y, )
+print(text_endgame_rect)
+topleft = list(text_endgame_rect.topleft)
+print(type(topleft))
+height = text_endgame_rect.height
+
+nom = font_Test_40.render("Capt. Steven Hiller ", True, BLANC)
+nom_rect = nom.get_rect()
+print(nom_rect)
+
+chiffre = '1 000'
+if chiffre > 0:
+    print("ok")
+chiffre_int = int(chiffre.replace(' ',''))
+print(chiffre_int, type(chiffre_int))

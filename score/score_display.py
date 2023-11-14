@@ -44,7 +44,6 @@ def menu(largeur_ecran, hauteur_ecran):
         display_menu.update({i: (name_temp, temp_rect, menu_labels[i])})
         hovered_labels.append(name_hovered)
 
-    print(display_menu)
     while running:
         MOUSE_POS = pygame.mouse.get_pos()
         for event in pygame.event.get():
@@ -89,7 +88,6 @@ def score_display(largeur_ecran, hauteur_ecran, screen):
     score_titre = ["Hall of Fame", "Hall of Shame"]
     position_titre = [(largeur_ecran // 2, round(hauteur_ecran * 0.083)),
                       (largeur_ecran // 2, round(hauteur_ecran * 0.5385))]
-    print(position_titre)
     police = get_police_menu(40)
 
     # Création bouton retour:
@@ -114,8 +112,6 @@ def score_display(largeur_ecran, hauteur_ecran, screen):
         [round(largeur_ecran * 0.25), round(hauteur_ecran * 0.15)], [round(largeur_ecran * 0.25),
                                                                      round(hauteur_ecran * 0.61)])
     for j in range(len(data_key)):
-        print("élément de data key[j]", data_key[j])
-        print("élément de initial position[j]", initial_position_elements[j])
         temp_scores = get_score_elements(scores_type, data_key[j], initial_position_elements[j], police, BLANC)
         scores_type_display.append(temp_scores)
 

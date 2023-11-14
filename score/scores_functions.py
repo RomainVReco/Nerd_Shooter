@@ -87,7 +87,7 @@ def check_score_type(score, name):
     :param name: le nom renseigné par le joueur en fin de partie
     :return: aucun
     """
-    if score > 0:
+    if int(score) > 0:
         insert_hiscores(score, name)
     else:
         insert_lowscores(score, name)
@@ -112,7 +112,7 @@ def get_score_elements(score_data, data_key, center_elements, police, color) -> 
     for score in (score_data[data_key]):
         value_dict_score = score.values()
         for value in value_dict_score:
-            value_temp = police.render(value, True, color)
+            value_temp = police.render(str(value), True, color)
             value_rect = value_temp.get_rect(topleft=position_temp)
             position_temp[0] += value_rect.width + 100
             if turn == 2:

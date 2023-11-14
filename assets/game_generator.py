@@ -29,6 +29,5 @@ def get_object_dictionnary(target_list, target_numbers, list_speeds_target) -> d
         rect.topleft = coordinates
         speed_temp = list_speeds_target[random.randint(0, 3)]
         dictionnary_of_target.update({target_numbers[j]: [rect, 0, 0, speed_temp]})
-        print(dictionnary_of_target)
         j += 1
     return dictionnary_of_target

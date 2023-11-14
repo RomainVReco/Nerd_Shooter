@@ -47,7 +47,6 @@ for i in range(len(menu_labels)):
     display_menu.update({i: (name_temp, temp_rect, menu_labels[i])})
     hovered_labels.append(name_hovered)
 
-print(display_menu)
 while running:
     MOUSE_POS = pygame.mouse.get_pos()
     for event in pygame.event.get():
