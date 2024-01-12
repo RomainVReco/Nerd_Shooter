@@ -1,4 +1,9 @@
-# duck_hunt_python
+# Projet scolaire et personnel
+
+Projet réalisé en 3 jours dans le cadre de ma reconversion à la Coding Factory.
+Par la suite, j'ai retravaillé le code pour finir d'intégrer les différents écrans et la gestion du score.
+
+Cependant, le code souffre de l'absence de l'orientée objet.
 
 ## Règles du jeu
 
@@ -23,21 +28,3 @@ Difficile : Multiple de 3 en hexadécimale - (nombre de cible à définir)​
 
 
 Le score est calculé en fonction du nombre de cibles détruites, et du temps écoulé avant destruction de l'ensemble des cibles.
-
-## Ordonnancement des écrans 
-
-Lors du lancement du jeu, un écran avec les options suivantes doit être appel (fichier main.py) :​
---> Play (page_niveau.py) / Option / High scores (présent dans le main.py) / Quit​
-
-
-Le choix de Play affiche un écran de sélection de la difficulté avec 3 choix (fichier page_niveau.py) :​
---> Facile (page_intermediaire_facile.py) / Medium (page_intermediaire_medium.py) / Difficile  (page_intermediaire_difficile.py)​
-
-​
-La sélection de la difficulté lance un écran récapitulant les paramètres de la partie (fichiers  page_intermediaire_facile/medium/difficile.py) 
-
-
-La partie se lance ensuite selon les paramètres préchargés (fichier number_generator.py)​
-
-​
-Une fois la partie terminée (cibles détruites), un écran de fin est proposé (non présent):
